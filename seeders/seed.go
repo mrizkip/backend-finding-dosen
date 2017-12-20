@@ -1,6 +1,8 @@
 package main
 
 import (
+	"time"
+
 	"github.com/mrizkip/backend-finding-dosen/models"
 )
 
@@ -17,4 +19,12 @@ func main() {
 	models.NewUser("dosen2@mail.com", "123321", "Test Account Dosen 2", "NIP", "8912830812387192839", "dosen")
 	models.NewUser("dosen3@mail.com", "123321", "Test Account Dosen 3", "NIP", "8912830812387192840", "dosen")
 	models.NewUser("dosen4@mail.com", "123321", "Test Account Dosen 4", "NIP", "8912830812387192841", "dosen")
+
+	lastUpdate := time.Now()
+	formatedLastUpdate := lastUpdate.Format("2006-01-02 15:04")
+	models.NewStatus(3, "Tidak Aktif", "", formatedLastUpdate)
+	models.NewStatus(4, "Tidak Aktif", "", formatedLastUpdate)
+	models.NewStatus(5, "Tidak Aktif", "", formatedLastUpdate)
+	models.NewStatus(6, "Tidak Aktif", "", formatedLastUpdate)
+	models.NewStatus(7, "Tidak Aktif", "", formatedLastUpdate)
 }

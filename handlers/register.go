@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
+	"time"
 
 	"github.com/mrizkip/backend-finding-dosen/errors"
 	"github.com/mrizkip/backend-finding-dosen/models"
@@ -39,6 +40,24 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	if _, err := models.NewUser(reqData.Email, reqData.Password, reqData.Nama, reqData.JenisIdentitas, reqData.NoIdentitas, role); err != nil {
 		errors.NewError("user already registered", http.StatusInternalServerError).WriteTo(w)
 		return
+	}
+
+	if role == "dosen" {
+		lastUpdate := time.Now()
+		formatedLastUpdate := lastUpdate.Format("2006-01-02 15:04")
+
+		var user models.User
+
+		query := "SELECT * FROM users WHERE email = ?"
+		if err := models.Dbm.SelectOne(&user, query, reqData.Email); err != nil {
+			errors.NewErrorWithStatusCode(http.StatusInternalServerError).WriteTo(w)
+			return
+		}
+
+		if _, err := models.NewStatus(user.ID, "Tidak Aktif", "", formatedLastUpdate); err != nil {
+			errors.NewErrorWithStatusCode(http.StatusInternalServerError).WriteTo(w)
+			return
+		}
 	}
 
 	json.NewEncoder(w).Encode(registerResponse{

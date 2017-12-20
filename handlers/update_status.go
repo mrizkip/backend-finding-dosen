@@ -25,28 +25,26 @@ func UpdateUserStatus(w http.ResponseWriter, r *http.Request) {
 	lastUpdate := time.Now()
 	formatedLastUpdate := lastUpdate.Format("2006-01-02 15:04")
 
-	if _, err := models.NewStatus(req.UserID, req.Status, req.DeskripsiStatus, formatedLastUpdate); err != nil {
-		userID := r.Context().Value("user_id").(int)
-		var stats models.Status
-		query := "SELECT * FROM status WHERE user_id = ?"
-		if err := models.Dbm.SelectOne(&stats, query, userID); err != nil {
-			errors.NewErrorWithStatusCode(http.StatusInternalServerError).WriteTo(w)
-			return
-		}
+	userID := r.Context().Value("user_id").(int)
+	var stats models.Status
+	query := "SELECT * FROM status WHERE user_id = ?"
+	if err := models.Dbm.SelectOne(&stats, query, userID); err != nil {
+		errors.NewErrorWithStatusCode(http.StatusInternalServerError).WriteTo(w)
+		return
+	}
 
-		parsedDate, err := time.Parse("2006-01-02 15:04", formatedLastUpdate)
-		if err != nil {
-			return
-		}
+	parsedDate, err := time.Parse("2006-01-02 15:04", formatedLastUpdate)
+	if err != nil {
+		return
+	}
 
-		stats.Status = req.Status
-		stats.DeskripsiStatus = req.DeskripsiStatus
-		stats.LastUpdate = parsedDate
+	stats.Status = req.Status
+	stats.DeskripsiStatus = req.DeskripsiStatus
+	stats.LastUpdate = parsedDate
 
-		if _, err := models.Dbm.Update(&stats); err != nil {
-			errors.NewErrorWithStatusCode(http.StatusInternalServerError).WriteTo(w)
-			return
-		}
+	if _, err := models.Dbm.Update(&stats); err != nil {
+		errors.NewErrorWithStatusCode(http.StatusInternalServerError).WriteTo(w)
+		return
 	}
 
 	json.NewEncoder(w).Encode(map[string]string{
