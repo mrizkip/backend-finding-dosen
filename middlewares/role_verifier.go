@@ -7,7 +7,7 @@ import (
 	"github.com/mrizkip/backend-finding-dosen/models"
 )
 
-func VerifyRoleAdmin(h http.Handler) http.Handler {
+func VerifyRoleDosen(h http.Handler) http.Handler {
 	middleware := func(w http.ResponseWriter, r *http.Request) {
 		userId := r.Context().Value("user_id").(int)
 		var user models.User
