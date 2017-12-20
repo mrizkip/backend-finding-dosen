@@ -5,12 +5,18 @@ import (
 	"goji.io/pat"
 
 	"github.com/mrizkip/backend-finding-dosen/handlers"
+	"github.com/mrizkip/backend-finding-dosen/middlewares"
 )
 
 func NewRouter() *goji.Mux {
 	rootRoute := goji.NewMux()
 	rootRoute.HandleFunc(pat.Post("/login"), handlers.Login)
 	rootRoute.HandleFunc(pat.Post("/register"), handlers.Register)
+
+	userRoute := goji.SubMux()
+	userRoute.Use(middlewares.VerifyToken)
+	userRoute.Use(middlewares.VerifyRoleDosen)
+	userRoute.HandleFunc(pat.Post("/update_status"), handlers.UpdateUserStatus)
 
 	/*
 		userRoute := goji.SubMux()
@@ -40,5 +46,8 @@ func NewRouter() *goji.Mux {
 		rootRoute.Handle(pat.New("/user/*"), userRoute)
 		rootRoute.Handle(pat.New("/promo/*"), promoRoute)
 	*/
+
+	rootRoute.Handle(pat.New("/user/*"), userRoute)
+
 	return rootRoute
 }

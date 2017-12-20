@@ -38,7 +38,8 @@ func init() {
 	}
 
 	Dbm.TraceOn("[gorm]", log.New(os.Stdout, "myapp:", log.Lmicroseconds))
-	Dbm.AddTableWithName(User{}, "users").SetKeys(true, "ID")
+	Dbm.AddTableWithName(User{}, "users").SetKeys(true, "ID").AddIndex("EmailIndex", "Btree", []string{"email"}).SetUnique(true)
+	Dbm.AddTableWithName(Status{}, "status").SetKeys(true, "ID").AddIndex("UserIDIndex", "Btree", []string{"user_id"}).SetUnique(true)
 	Dbm.TraceOff()
 
 }
