@@ -15,8 +15,16 @@ func NewRouter() *goji.Mux {
 
 	userRoute := goji.SubMux()
 	userRoute.Use(middlewares.VerifyToken)
-	userRoute.Use(middlewares.VerifyRoleDosen)
-	userRoute.HandleFunc(pat.Post("/update_status"), handlers.UpdateUserStatus)
+	userRoute.HandleFunc(pat.Get("/my_profile"), handlers.FetchMyProfile)
+	userRoute.HandleFunc(pat.Post("/change_profile"), handlers.ChangeProfile)
+	userRoute.HandleFunc(pat.Post("/change_password"), handlers.ChangePassword)
+	userRoute.HandleFunc(pat.Get("/fetch_dosens"), handlers.FetchAllDosenProfile)
+	userRoute.HandleFunc(pat.Get("/:id/profile"), handlers.FetchUserProfile)
+
+	dosenRoute := goji.SubMux()
+	dosenRoute.Use(middlewares.VerifyToken)
+	dosenRoute.Use(middlewares.VerifyRoleDosen)
+	dosenRoute.HandleFunc(pat.Post("/update_status"), handlers.UpdateUserStatus)
 
 	/*
 		userRoute := goji.SubMux()
@@ -48,6 +56,7 @@ func NewRouter() *goji.Mux {
 	*/
 
 	rootRoute.Handle(pat.New("/user/*"), userRoute)
+	rootRoute.Handle(pat.New("/dosen/*"), dosenRoute)
 
 	return rootRoute
 }
