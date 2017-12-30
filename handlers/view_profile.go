@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -27,12 +26,10 @@ func FetchMyProfile(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func FetchUserProfile(w http.ResponseWriter, r *http.Request) {
+func FetchUserProfileById(w http.ResponseWriter, r *http.Request) {
 	userId := pat.Param(r, "id")
 
 	user, err := fetchUser(userId)
-
-	fmt.Println(userId)
 
 	if err != nil {
 		errors.NewError("can't fetch profile", http.StatusInternalServerError).WriteTo(w)
