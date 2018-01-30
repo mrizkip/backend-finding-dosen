@@ -14,7 +14,7 @@ type changePasswordRequest struct {
 }
 
 type changeProfileRequest struct {
-	Email string `json:"username"`
+	Email string `json:"email"`
 	Nama  string `json:"full_name"`
 }
 

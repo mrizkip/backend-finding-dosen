@@ -9,6 +9,7 @@ type Status struct {
 	UserID          int       `db:"user_id" json:"user_id"`
 	Status          string    `db:"status" json:"status"`
 	DeskripsiStatus string    `db:"desc_status" json:"desc_status"`
+	Posisi          string    `db:"posisi" json:"posisi"`
 	LastUpdate      time.Time `db:"last_update" json:"last_update"`
 }
 
