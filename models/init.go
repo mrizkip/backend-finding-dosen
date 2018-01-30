@@ -16,7 +16,7 @@ var Dbm *gorp.DbMap
 // initialize dbMap instance
 func init() {
 
-	dbName := env.Getenv("DB_NAME", "come")
+	dbName := env.Getenv("DB_NAME", "findingdosen")
 	dbHost := env.Getenv("DB_HOST", "127.0.0.1")
 	dbUsername := env.Getenv("DB_USERNAME", "root")
 	dbPort := env.Getenv("DB_PORT", "3306")
