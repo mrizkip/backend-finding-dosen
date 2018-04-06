@@ -11,6 +11,13 @@ import (
 	"github.com/mrizkip/backend-finding-dosen/models"
 )
 
+// DosenResponseAll represent json response when fetch all dosen
+type DosenResponseAll struct {
+	ID     int    `json: id`
+	Nama   string `json: nama`
+	Status string `json: status`
+}
+
 // FetchMyProfile represent a request for get my profile
 func FetchMyProfile(w http.ResponseWriter, r *http.Request) {
 	myID := r.Context().Value("user_id").(int)
@@ -45,21 +52,20 @@ func FetchUserProfileByID(w http.ResponseWriter, r *http.Request) {
 
 // FetchAllDosenProfile represent a reuqest for get all dosen profile
 func FetchAllDosenProfile(w http.ResponseWriter, r *http.Request) {
-	var users []models.User
+	var users []DosenResponseAll
 
 	role := "dosen"
 
-	query := `SELECT id, email, nama, jenis_identitas, no_identitas, role
-	FROM users
-	WHERE role=?
-	`
+	query := `SELECT users.id, users.nama, status.status
+	FROM users JOIN status
+	WHERE role=? AND users.id = status.user_id;`
 
 	if _, err := models.Dbm.Select(&users, query, role); err != nil {
 		errors.NewError("can't fetch profile", http.StatusInternalServerError).WriteTo(w)
 		return
 	}
 
-	json.NewEncoder(w).Encode(map[string][]models.User{
+	json.NewEncoder(w).Encode(map[string][]DosenResponseAll{
 		"data": users,
 	})
 }
