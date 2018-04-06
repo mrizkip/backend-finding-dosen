@@ -8,6 +8,7 @@ import (
 	"github.com/mrizkip/backend-finding-dosen/middlewares"
 )
 
+// NewRouter for create router
 func NewRouter() *goji.Mux {
 	rootRoute := goji.NewMux()
 	rootRoute.HandleFunc(pat.Post("/login"), handlers.Login)
@@ -19,7 +20,7 @@ func NewRouter() *goji.Mux {
 	userRoute.HandleFunc(pat.Post("/change_profile"), handlers.ChangeProfile)
 	userRoute.HandleFunc(pat.Post("/change_password"), handlers.ChangePassword)
 	userRoute.HandleFunc(pat.Get("/fetch_dosens"), handlers.FetchAllDosenProfile)
-	userRoute.HandleFunc(pat.Get("/:id/profile"), handlers.FetchUserProfileById)
+	userRoute.HandleFunc(pat.Get("/:id/profile"), handlers.FetchUserProfileByID)
 
 	dosenRoute := goji.SubMux()
 	dosenRoute.Use(middlewares.VerifyToken)

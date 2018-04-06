@@ -11,25 +11,11 @@ import (
 	"github.com/mrizkip/backend-finding-dosen/models"
 )
 
+// FetchMyProfile represent a request for get my profile
 func FetchMyProfile(w http.ResponseWriter, r *http.Request) {
-	myId := r.Context().Value("user_id").(int)
+	myID := r.Context().Value("user_id").(int)
 
-	user, err := fetchUser(strconv.Itoa(myId))
-
-	if err != nil {
-		errors.NewError("can't fetch profile", http.StatusInternalServerError).WriteTo(w)
-		return
-	}
-
-	json.NewEncoder(w).Encode(map[string]models.User{
-		"data": user,
-	})
-}
-
-func FetchUserProfileById(w http.ResponseWriter, r *http.Request) {
-	userId := pat.Param(r, "id")
-
-	user, err := fetchUser(userId)
+	user, err := fetchUser(strconv.Itoa(myID))
 
 	if err != nil {
 		errors.NewError("can't fetch profile", http.StatusInternalServerError).WriteTo(w)
@@ -41,6 +27,23 @@ func FetchUserProfileById(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// FetchUserProfileByID represent a requset for get user profile by ID
+func FetchUserProfileByID(w http.ResponseWriter, r *http.Request) {
+	userID := pat.Param(r, "id")
+
+	user, err := fetchUser(userID)
+
+	if err != nil {
+		errors.NewError("can't fetch profile", http.StatusInternalServerError).WriteTo(w)
+		return
+	}
+
+	json.NewEncoder(w).Encode(map[string]models.User{
+		"data": user,
+	})
+}
+
+// FetchAllDosenProfile represent a reuqest for get all dosen profile
 func FetchAllDosenProfile(w http.ResponseWriter, r *http.Request) {
 	var users []models.User
 
@@ -61,6 +64,7 @@ func FetchAllDosenProfile(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// FetchUserProfileByEmail represent a request for get user profile by email
 func FetchUserProfileByEmail(w http.ResponseWriter, r *http.Request) {
 	email := pat.Param(r, "email")
 

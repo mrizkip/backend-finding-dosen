@@ -9,7 +9,7 @@ import (
 )
 
 type req struct {
-	data []data `json:"data"`
+	Data []data `json:"data"`
 }
 
 type data struct {
@@ -19,6 +19,7 @@ type data struct {
 	Level     int    `json:"level"`
 }
 
+// UpdateDosenLocation represent a reuqest for update location from dosen
 func UpdateDosenLocation(w http.ResponseWriter, r *http.Request) {
 
 	var req req
@@ -29,7 +30,7 @@ func UpdateDosenLocation(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	apRequests := req.data
+	apRequests := req.Data
 
 	var apDb []models.AccessPoint
 

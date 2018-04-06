@@ -13,15 +13,17 @@ type User struct {
 	Nama           string `db:"nama" json:"nama"`
 	JenisIdentitas string `db:"jenis_identitas" json:"jenis_identitas"`
 	NoIdentitas    string `db:"no_identitas" json:"no_identitas"`
+	NoTelpon       string `db:"no_telpon" json:"no_telpon"`
 	Role           string `db:"role" json:"role"`
 }
 
-func NewUser(email, password, nama, jenisIdentitas, noIdentitas, role string) (*User, error) {
+func NewUser(email, password, nama, jenisIdentitas, noIdentitas, noTelpon, role string) (*User, error) {
 	user := &User{
 		Email:          email,
 		Nama:           nama,
 		JenisIdentitas: jenisIdentitas,
 		NoIdentitas:    noIdentitas,
+		NoTelpon:       noTelpon,
 		Role:           role,
 	}
 	user.HashPassword(password)
