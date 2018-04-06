@@ -8,6 +8,7 @@ import (
 	"github.com/mrizkip/backend-finding-dosen/middlewares"
 )
 
+// NewRouter for create router
 func NewRouter() *goji.Mux {
 	rootRoute := goji.NewMux()
 	rootRoute.HandleFunc(pat.Post("/login"), handlers.Login)
