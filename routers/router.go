@@ -21,6 +21,8 @@ func NewRouter() *goji.Mux {
 	userRoute.HandleFunc(pat.Post("/change_password"), handlers.ChangePassword)
 	userRoute.HandleFunc(pat.Get("/fetch_dosens"), handlers.FetchAllDosenProfile)
 	userRoute.HandleFunc(pat.Get("/:id/profile"), handlers.FetchUserProfileByID)
+	userRoute.HandleFunc(pat.Get("/:id/profile_dosen"), handlers.FetchDosenByID)
+	userRoute.HandleFunc(pat.Get("/:id/dosen_position"), handlers.GetDosenLocation)
 
 	dosenRoute := goji.SubMux()
 	dosenRoute.Use(middlewares.VerifyToken)

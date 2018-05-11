@@ -44,7 +44,7 @@ func init() {
 
 }
 
-// Create tables
+// CreateTables represent create table for db
 func CreateTables() error {
 	if err := Dbm.DropTablesIfExists(); err != nil {
 		return err
