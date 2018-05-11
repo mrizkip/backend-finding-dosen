@@ -56,7 +56,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if _, err := models.NewStatus(user.ID, "Tidak Aktif", "", formatedLastUpdate); err != nil {
+		if _, err := models.NewStatus(user.ID, "Tidak Aktif", "", "", formatedLastUpdate); err != nil {
 			errors.NewErrorWithStatusCode(http.StatusInternalServerError).WriteTo(w)
 			return
 		}

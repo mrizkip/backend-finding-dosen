@@ -22,9 +22,9 @@ func main() {
 
 	lastUpdate := time.Now()
 	formatedLastUpdate := lastUpdate.Format("2006-01-02 15:04")
-	models.NewStatus(3, "Tidak Aktif", "", formatedLastUpdate)
-	models.NewStatus(4, "Tidak Aktif", "", formatedLastUpdate)
-	models.NewStatus(5, "Tidak Aktif", "", formatedLastUpdate)
-	models.NewStatus(6, "Tidak Aktif", "", formatedLastUpdate)
-	models.NewStatus(7, "Tidak Aktif", "", formatedLastUpdate)
+	models.NewStatus(3, "Tidak Aktif", "", "", formatedLastUpdate)
+	models.NewStatus(4, "Tidak Aktif", "", "", formatedLastUpdate)
+	models.NewStatus(5, "Tidak Aktif", "", "", formatedLastUpdate)
+	models.NewStatus(6, "Tidak Aktif", "", "", formatedLastUpdate)
+	models.NewStatus(7, "Tidak Aktif", "", "", formatedLastUpdate)
 }
