@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/come-backend/errors"
+	"github.com/mrizkip/backend-finding-dosen/errors"
 	"github.com/mrizkip/backend-finding-dosen/models"
 )
 
