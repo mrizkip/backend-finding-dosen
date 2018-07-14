@@ -28,6 +28,7 @@ func NewRouter() *goji.Mux {
 	dosenRoute.Use(middlewares.VerifyToken)
 	dosenRoute.Use(middlewares.VerifyRoleDosen)
 	dosenRoute.HandleFunc(pat.Post("/update_status"), handlers.UpdateUserStatus)
+	dosenRoute.HandleFunc(pat.Post("/update_location"), handlers.UpdateDosenLocation)
 
 	rootRoute.Handle(pat.New("/user/*"), userRoute)
 	rootRoute.Handle(pat.New("/dosen/*"), dosenRoute)
