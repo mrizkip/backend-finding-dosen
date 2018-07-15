@@ -139,7 +139,7 @@ func fetchUser(id string) (models.User, error) {
 	var user models.User
 
 	query := `
-	SELECT id, email, nama, jenis_identitas, no_identitas, role
+	SELECT id, email, nama, jenis_identitas, no_identitas, no_telpon, role
 	FROM users
 	WHERE id=?
 	`
