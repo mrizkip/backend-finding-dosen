@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"net/http"
+	"time"
 
 	"github.com/mrizkip/backend-finding-dosen/errors"
 	"github.com/mrizkip/backend-finding-dosen/models"
@@ -27,6 +28,21 @@ type updateResponse struct {
 
 // UpdateDosenLocation represent a reuqest for update location from dosen
 func UpdateDosenLocation(w http.ResponseWriter, r *http.Request) {
+
+	lastUpdate := time.Now()
+	formatedLastUpdate := lastUpdate.Format("2006-01-02 15:04")
+
+	userID := r.Context().Value("user_id").(int)
+	var status models.Status
+	queryUser := "SELECT * FROM status WHERE user_id = ?"
+	if err := models.Dbm.SelectOne(&status, queryUser, userID); err != nil {
+		errors.NewErrorWithStatusCode(http.StatusInternalServerError).WriteTo(w)
+		return
+	}
+	parsedDate, err := time.Parse("2006-01-02 15:04", formatedLastUpdate)
+	if err != nil {
+		return
+	}
 
 	var req req
 
@@ -65,6 +81,13 @@ func UpdateDosenLocation(w http.ResponseWriter, r *http.Request) {
 
 	if len(listAp) == 0 {
 		// TODO UPDATE POSISI DOSEN TO ""
+		status.Posisi = "Tidak ada"
+		status.LastUpdate = parsedDate
+		if _, err := models.Dbm.Update(&status); err != nil {
+			errors.NewErrorWithStatusCode(http.StatusInternalServerError).WriteTo(w)
+			return
+		}
+
 		errors.NewError("Tidak ada Access Point yang sesuai!", http.StatusBadRequest).WriteTo(w)
 		return
 	}
@@ -212,7 +235,6 @@ func UpdateDosenLocation(w http.ResponseWriter, r *http.Request) {
 		difLevel2 := rgb.LevelG - level2
 		difLevel3 := rgb.LevelB - level3
 		mse := math.Sqrt(math.Pow(float64(difLevel1), 2) + math.Pow(float64(difLevel2), 2) + math.Pow(float64(difLevel3), 2))
-		fmt.Printf("mse: %.3f\n", mse)
 		mseData = append(mseData, mse)
 	}
 
@@ -235,6 +257,12 @@ func UpdateDosenLocation(w http.ResponseWriter, r *http.Request) {
 	// posisi dosen dilihat dari data RGB
 	posisi = dataRgb[idxMinimum].Ruang
 	//TODO UPDATE POSISI DOSEN
+	status.Posisi = posisi
+	status.LastUpdate = parsedDate
+	if _, err := models.Dbm.Update(&status); err != nil {
+		errors.NewErrorWithStatusCode(http.StatusInternalServerError).WriteTo(w)
+		return
+	}
 	var response updateResponse
 	response.Posisi = posisi
 	response.Mse = minimumValue
