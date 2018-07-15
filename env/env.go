@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	if err := godotenv.Load(os.Getenv("GOPATH") + "/src/github.com/mrizkip/backend-finding-dosen/.env"); err != nil {
+	if err := godotenv.Load("/home/ubuntu/go/src/github.com/mrizkip/backend-finding-dosen/.env"); err != nil {
 		panic(err)
 	}
 }
