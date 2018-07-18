@@ -339,7 +339,7 @@ func UpdateDosenLocation(w http.ResponseWriter, r *http.Request) {
 		difLevel1 := rgb.LevelR - level1
 		difLevel2 := rgb.LevelG - level2
 		difLevel3 := rgb.LevelB - level3
-		mse := math.Sqrt(math.Pow(float64(difLevel1), 2) + math.Pow(float64(difLevel2), 2) + math.Pow(float64(difLevel3), 2))
+		mse := (math.Pow(float64(difLevel1), 2) + math.Pow(float64(difLevel2), 2) + math.Pow(float64(difLevel3), 2)) / 3
 		mseData = append(mseData, mse)
 	}
 
