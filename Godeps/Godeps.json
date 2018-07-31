@@ -1,0 +1,58 @@
+{
+	"ImportPath": "github.com/mrizkip/backend-finding-dosen",
+	"GoVersion": "go1.9",
+	"GodepVersion": "v80",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/dgrijalva/jwt-go",
+			"Comment": "v3.1.0",
+			"Rev": "dbeaa9332f19a944acb5736b4456cfcc02140e29"
+		},
+		{
+			"ImportPath": "github.com/go-sql-driver/mysql",
+			"Comment": "v1.3-50-g9181e3a",
+			"Rev": "9181e3a86a19bacd63e68d43ae8b7b36320d8092"
+		},
+		{
+			"ImportPath": "github.com/joho/godotenv",
+			"Comment": "v1.2.0-4-g6d367c1",
+			"Rev": "6d367c18edf6ca7fd004efd6863e4c5728fa858e"
+		},
+		{
+			"ImportPath": "goji.io",
+			"Comment": "v2.0",
+			"Rev": "0d89ff54b2c18c9c4ba530e32496aef902d3c6cd"
+		},
+		{
+			"ImportPath": "goji.io/internal",
+			"Comment": "v2.0",
+			"Rev": "0d89ff54b2c18c9c4ba530e32496aef902d3c6cd"
+		},
+		{
+			"ImportPath": "goji.io/pat",
+			"Comment": "v2.0",
+			"Rev": "0d89ff54b2c18c9c4ba530e32496aef902d3c6cd"
+		},
+		{
+			"ImportPath": "goji.io/pattern",
+			"Comment": "v2.0",
+			"Rev": "0d89ff54b2c18c9c4ba530e32496aef902d3c6cd"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/bcrypt",
+			"Rev": "244f6ce1f09cc9f3d7bffe29b033aaa13c0cc2f3"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/blowfish",
+			"Rev": "244f6ce1f09cc9f3d7bffe29b033aaa13c0cc2f3"
+		},
+		{
+			"ImportPath": "gopkg.in/gorp.v2",
+			"Comment": "v2.0.0",
+			"Rev": "4deece61034873cb5b5416e81abe4cea7bd0da72"
+		}
+	]
+}
