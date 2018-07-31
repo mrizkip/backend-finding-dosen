@@ -15,12 +15,14 @@ type registerRequest struct {
 	Nama           string `json:"nama"`
 	JenisIdentitas string `json:"jenis_identitas"`
 	NoIdentitas    string `json:"no_identitas"`
+	NoTelpon       string `json:"no_telpon"`
 }
 
 type registerResponse struct {
 	Message string `json:"message"`
 }
 
+// Register represent a request for register user
 func Register(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	var reqData registerRequest
@@ -37,7 +39,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		role = "mahasiswa"
 	}
 
-	if _, err := models.NewUser(reqData.Email, reqData.Password, reqData.Nama, reqData.JenisIdentitas, reqData.NoIdentitas, role); err != nil {
+	if _, err := models.NewUser(reqData.Email, reqData.Password, reqData.Nama, reqData.JenisIdentitas, reqData.NoIdentitas, reqData.NoTelpon, role); err != nil {
 		errors.NewError("user already registered", http.StatusInternalServerError).WriteTo(w)
 		return
 	}
@@ -54,7 +56,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if _, err := models.NewStatus(user.ID, "Tidak Aktif", "", formatedLastUpdate); err != nil {
+		if _, err := models.NewStatus(user.ID, "Tidak Aktif", "", "", formatedLastUpdate); err != nil {
 			errors.NewErrorWithStatusCode(http.StatusInternalServerError).WriteTo(w)
 			return
 		}

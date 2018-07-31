@@ -11,16 +11,17 @@ import (
 	"gopkg.in/gorp.v2"
 )
 
+// Dbm object for go relational presistence databse
 var Dbm *gorp.DbMap
 
 // initialize dbMap instance
 func init() {
 
-	dbName := env.Getenv("DB_NAME", "come")
+	dbName := env.Getenv("DB_NAME", "yourdbname")
 	dbHost := env.Getenv("DB_HOST", "127.0.0.1")
 	dbUsername := env.Getenv("DB_USERNAME", "root")
 	dbPort := env.Getenv("DB_PORT", "3306")
-	dbPassword := env.Getenv("DB_PASSWORD", "")
+	dbPassword := env.Getenv("DB_PASSWORD", "yourdbpassword")
 	dbUrl := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", dbUsername, dbPassword, dbHost, dbPort, dbName)
 	log.Println(dbUrl)
 
@@ -44,7 +45,7 @@ func init() {
 
 }
 
-// Create tables
+// CreateTables represent create table for db
 func CreateTables() error {
 	if err := Dbm.DropTablesIfExists(); err != nil {
 		return err

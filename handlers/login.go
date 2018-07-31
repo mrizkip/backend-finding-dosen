@@ -22,6 +22,7 @@ type loginResponse struct {
 	LoggedInUser models.User `json:"logged_in_user"`
 }
 
+// Login represent a request for login user
 func Login(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	var req loginRequest

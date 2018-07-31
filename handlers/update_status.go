@@ -9,6 +9,7 @@ import (
 	"github.com/mrizkip/backend-finding-dosen/models"
 )
 
+// UpdateUserStatus represent a request for update status from dosen
 func UpdateUserStatus(w http.ResponseWriter, r *http.Request) {
 	var req struct {
 		UserID          int    `json:"user_id"`
