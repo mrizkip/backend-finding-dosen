@@ -375,6 +375,7 @@ func UpdateDosenLocation(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(response)
 }
 
+// Round function to round float number to integer
 func Round(val float64) int {
 	if val < 0 {
 		return int(val - 0.5)

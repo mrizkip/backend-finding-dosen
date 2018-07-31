@@ -1,5 +1,6 @@
 package models
 
+// DataRgb object
 type DataRgb struct {
 	ID     int    `db:"id" json:"id"`
 	Gedung string `db:"gedung" json:"gedung"`
@@ -12,6 +13,7 @@ type DataRgb struct {
 	AP3    int    `db:"ap3" json:"ap3"`
 }
 
+// NewDataRgb insert new row
 func NewDataRgb(gedung, ruang string, level_r, level_g, level_b, ap1, ap2, ap3 int) (*DataRgb, error) {
 	data := &DataRgb{
 		Gedung: gedung,

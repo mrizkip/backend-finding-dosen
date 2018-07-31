@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+// AgendaPertemuan object
 type AgendaPertemuan struct {
 	ID               int       `db:"id" json:"id"`
 	UserID           int       `db:"user_id" json:"user_id"`
@@ -15,6 +16,7 @@ type AgendaPertemuan struct {
 	TanggalDibuat    time.Time `db:"tanggal_dibuat" json:"tanggal_dibuat"`
 }
 
+// CatatanAgendaPertemuan object
 type CatatanAgendaPertemuan struct {
 	ID                int       `db:"id" json:"id"`
 	AgendaPertemuanID int       `db:"agenda_pertemuan_id" json:"agenda_pertemuan_id"`
@@ -23,6 +25,7 @@ type CatatanAgendaPertemuan struct {
 	TanggalDibuat     time.Time `db:"tanggal_dibuat" json:"tanggal_dibuat"`
 }
 
+// NewAgendaPertemuan new row
 func NewAgendaPertemuan(userId, dosenId int, judul, keterangan, tanggalPertemuan string) (*AgendaPertemuan, error) {
 	parsedTanggalPertemuan, err := time.Parse("2006-01-02 15:04", tanggalPertemuan)
 	if err != nil {
@@ -53,6 +56,7 @@ func NewAgendaPertemuan(userId, dosenId int, judul, keterangan, tanggalPertemuan
 	return agenda, nil
 }
 
+// AddCatatanAgendaPertemuan new  row
 func AddCatatanAgendaPertemuan(agendaPertemuanId, userId int, catatan string) (*CatatanAgendaPertemuan, error) {
 	now := time.Now()
 	formatedNow := now.Format("2006-01-02 15:04")

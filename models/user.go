@@ -6,6 +6,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// User object
 type User struct {
 	ID             int    `db:"id" json:"id"`
 	Email          string `db:"email" json:"email"`
@@ -17,6 +18,7 @@ type User struct {
 	Role           string `db:"role" json:"role"`
 }
 
+// NewUser insert new row
 func NewUser(email, password, nama, jenisIdentitas, noIdentitas, noTelpon, role string) (*User, error) {
 	user := &User{
 		Email:          email,
@@ -36,6 +38,7 @@ func NewUser(email, password, nama, jenisIdentitas, noIdentitas, noTelpon, role 
 	return user, err
 }
 
+// HashPassword to hash user password
 func (u *User) HashPassword(raw string) {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(raw), bcrypt.DefaultCost)
 	if err != nil {
@@ -44,6 +47,7 @@ func (u *User) HashPassword(raw string) {
 	u.Password = string(hashedPassword)
 }
 
+// VerifyPassword to verify login password and database password
 func (u *User) VerifyPassword(password string) error {
 	err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(password))
 	if err != nil {
