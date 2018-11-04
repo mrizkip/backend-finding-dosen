@@ -6,7 +6,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// when running using SUPERVISOR, os.Getenv("GOPATH") not function, change to $GOPATH manually
+// when running using SUPERVISOR, os.Getenv("GOPATH") not work, change to $GOPATH manually
 func init() {
 	if err := godotenv.Load(os.Getenv("GOPATH") + "/src/github.com/mrizkip/backend-finding-dosen/.env"); err != nil {
 		panic(err)
